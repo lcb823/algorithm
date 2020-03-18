@@ -4,6 +4,7 @@ import (
 	"testing"
 	"fmt"
 	"errors"
+	"math/rand"
 )
 
 func TestInsertToHead(t *testing.T) {
@@ -159,4 +160,42 @@ func TestIsPalindrome2(t *testing.T) {
 	l.Print()
 
 	fmt.Println("test isPalindrome2 end")
+}
+
+func TestHasRing(t *testing.T) {
+	fmt.Println("test HasRing begin")
+	//没有ring的情况
+	l := NewLinkedList()
+	ary := []string{"a","b","c","d","e","f","g"}
+	for _, v := range ary {
+		l.InsertToTail(v)
+	}
+	entry := l.HasRing()
+	if entry != nil {
+		t.Fatal("没有ring的情况，判断错误")
+	}
+
+	//有ring的情况
+	ll := NewLinkedList()
+	// var entry *ListNode;
+	for i := 0; i < 100; i ++ {
+		ll.InsertToTail(i)
+	}
+
+	v := rand.Intn(99)
+
+	entry = ll.FindByIndex(uint(v))
+	last := ll.FindByIndex(99)
+	last.Next = entry
+
+	findEntry := ll.HasRing()
+	fmt.Println(findEntry)
+	if entry != findEntry {
+		t.Log(entry)
+		t.Log(findEntry)
+
+		t.Fatal("有ring的情况，判断错误")
+	}
+
+	fmt.Println("test HasRing end")
 }

@@ -105,7 +105,7 @@ func (this *LinkedList) DeleteNode(p *ListNode) bool {
 	return false
 }
 
-//通过索引查找节点
+//通过索引查找节点,从0开始
 func (this *LinkedList) FindByIndex(index uint) *ListNode {
 	if index >= this.Length {
 		return nil
@@ -190,6 +190,38 @@ func (this *LinkedList) Print() {
 		cur = cur.Next
 	}
 	fmt.Println(format)
+}
+
+//单链表是否有环，如果有，返回入口节点
+func (this *LinkedList) HasRing() *ListNode {
+	//创建fast,low指针,遍历链表,找到相遇节点
+	if this.Length == 1 {
+		if this.Head.Next == this.Head {
+			return this.Head
+		} else {
+			return nil
+		}
+	}
+
+	slow, fast := this.Head, this.Head
+	for {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if fast == nil {
+			return nil
+		}
+		if slow == fast {
+			//找到相遇点之后
+			slow = this.Head
+			for {
+				slow = slow.Next
+				fast = fast.Next
+				if slow == fast {
+					return slow
+				}
+			}
+		}
+	}
 }
 
 //单链表回文实现,时间复杂度O(n),空间复杂度O(n)
