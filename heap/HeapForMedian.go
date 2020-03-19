@@ -29,32 +29,15 @@ func (this *HeapForMedian) AddItem(item interface{}) bool{
 		return false
 	}
 
-	if this.Num == 0 {
-		this.HeapSmall.InsertNode(item)
-	} else if this.Num == 1 {
-		this.HeapBig.InsertNode(item)
-		if this.CompareFun(item, this.HeapSmall.Data[1]) > 0 {
-			this.HeapBig.Data[1], this.HeapSmall.Data[1] = this.HeapSmall.Data[1], this.HeapBig.Data[1]
-		}
-	} else {
-		if this.CompareFun(item, this.HeapSmall.Data[1]) >= 0 {
-			this.HeapSmall.InsertNode(item)
-		} else {
-			this.HeapBig.InsertNode(item)
-		}
+	this.HeapSmall.InsertNode(item)
+	top := this.HeapSmall.Data[1]
+	this.HeapSmall.DeleteTop()
+	this.HeapBig.InsertNode(top)
 
-		if this.HeapSmall.Num - this.HeapBig.Num == 2 {
-			top := this.HeapSmall.Data[1]
-			this.HeapSmall.DeleteTop()
-
-			this.HeapBig.InsertNode(top)
-		}
-		if this.HeapBig.Num - this.HeapSmall.Num == 2 {
-			top := this.HeapBig.Data[1]
-			this.HeapBig.DeleteTop()
-
-			this.HeapSmall.InsertNode(top)
-		}
+	if this.HeapSmall.Num < this.HeapBig.Num {
+		top = this.HeapBig.Data[1]
+		this.HeapBig.DeleteTop()
+		this.HeapSmall.InsertNode(top)
 	}
 	this.Num++
 	return true
