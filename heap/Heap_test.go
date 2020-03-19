@@ -33,10 +33,34 @@ func TestHeap(t *testing.T) {
 	}
 
 	heap.Sort()
+	heap.Print()
 
-	// heap.Print()
+	for i := 0; i < num; i ++ {
+		heap.DeleteTop()
+		heap.Print()
+	}
 }
 
-func TestHeapSort(t *testing.T) {
+func TestDeleteTop(t *testing.T) {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	num := 3
+	rand := r.Perm(num)
 
+	ary := make([]interface{},num)
+	for i := 0; i < num; i++ {
+		ary[i] = rand[i]
+	}
+
+	heap := NewHeap(uint(num), compareFunc, "asc")
+
+	for i := 0; i < num; i ++ {
+		heap.InsertNode(ary[i])
+	}
+
+	heap.Print()
+
+	for i := 0; i < num; i ++ {
+		heap.DeleteTop()
+		heap.Print()
+	}
 }

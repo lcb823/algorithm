@@ -117,19 +117,27 @@ func (this *Heap) DeleteTop() {
 	this.heapifyUpToDown()
 }
 
+//堆排序
 func (this *Heap) Sort() {
+	tmp := this.Num
 	for this.Num > 1 {
 		//模拟删除,
 		this.Data[1], this.Data[this.Num] = this.Data[this.Num], this.Data[1]
 		this.Num--
 		this.heapifyUpToDown()
-
-
-		this.Print()
 	}
+	this.Num = tmp
 }
 
 func (this *Heap) Print() {
-	fmt.Println(this.Data)
+	if this.Num == 0 {
+		fmt.Println(" heap num is 0")
+		return
+	}
+	var format string
+	for i := uint(0); i < this.Num; i ++ {
+		format += fmt.Sprintf(" %+v", i)
+	}
+	fmt.Println(format)
 	fmt.Println(this.Num)
 }
