@@ -1,7 +1,7 @@
 package recursion
 
 import (
-	"fmt"
+	// "fmt"
 )	
 
 type RangeArray struct {
@@ -17,10 +17,14 @@ func NewRangeArray(capacity uint) *RangeArray {
 }
 
 //递归法,参考  https://zhuanlan.zhihu.com/p/24889336
-func (this *RangeArray) Range(start uint) {
+func (this *RangeArray) Range(start uint) [][]interface{}{
+	var result [][]interface{}
 	if start == this.capacity - 1  {
-		fmt.Println(this.data)
-		return
+		tmp := make([]interface{}, this.capacity)
+		copy(tmp, this.data)
+		result = append(result, tmp)
+		// fmt.Println(this.data)
+		return result
 	}
 
 	for i := start; i < this.capacity; i++ {
@@ -29,12 +33,9 @@ func (this *RangeArray) Range(start uint) {
 			continue
 		}
 		this.data[start], this.data[i] = this.data[i], this.data[start]
-		this.Range(start + uint(1))
+		tmp := this.Range(start + uint(1))
+		result = append(result, tmp...)
 		this.data[start], this.data[i] = this.data[i], this.data[start]	
 	}
-}
-
-//由小到大排序，依次寻找相邻且更大的数
-func (this *RangeArray) Range1(){
-	
+	return result
 }

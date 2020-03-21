@@ -1,6 +1,9 @@
 package recursion
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func TestRangeALL(t *testing.T) {
 	// slice1 := NewRangeArray(4)
@@ -13,6 +16,6 @@ func TestRangeALL(t *testing.T) {
 	slice2.data[0] = "a"
 	slice2.data[1] = "a"
 	slice2.data[2] = "c"
-	slice2.Range(0)
-
+	result := slice2.Range(0)
+	fmt.Println(result)
 }

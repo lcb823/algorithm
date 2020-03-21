@@ -55,6 +55,7 @@ func (this *ArrayStack) IsEmpty() bool {
 }
 
 func (this *ArrayStack) Flush() bool {
+	this.data = this.data[:0]
 	this.top = 0
 	return true
 }
