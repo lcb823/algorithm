@@ -1,7 +1,7 @@
 package stack
 
 import (
-	"fmt"
+	// "fmt"
 	"testing"
 	"errors"
 )
