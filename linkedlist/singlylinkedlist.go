@@ -140,16 +140,15 @@ func (this *LinkedList) Reverse1() {
 	if this.Length == uint(0) || this.Length == uint(1) {
 		return
 	}
-	var pre *ListNode = nil
-	cur := this.Head.Next
-
-	for nil != cur {
+	pre, cur := nil, this.Head.Next
+	for cur != nil {
 		tmp := cur.Next
 		cur.Next = pre
 		pre = cur
 		cur = tmp
 	}
 	this.Head.Next = pre
+
 	// if nil == this.Head || nil == this.Head.Next || nil == this.Head.Next.Next {
 	// 	return
 	// }

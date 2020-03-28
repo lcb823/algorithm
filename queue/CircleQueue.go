@@ -13,7 +13,7 @@ type CircleQueue struct {
 
 func NewCircleQueue(capacity uint) *CircleQueue {
 	return &CircleQueue{
-		items:	make([]interface{}, capacity, capacity),//nil 占位初始化
+		items:	make([]interface{}, capacity),
 		capacity:	capacity,
 		head:	uint(0),
 		tail:	uint(0),

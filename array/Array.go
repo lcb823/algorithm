@@ -15,7 +15,7 @@ func NewArray(capacity uint) *Array {
 		return nil
 	}
 	return &Array{
-		data:	make([]int, capacity, capacity),
+		data:	make([]int, 0, capacity),
 		length: 0,
 	}
 }
@@ -31,7 +31,7 @@ func (this *Array) isArrayFull() bool {
 func (this *Array) setSize() error {
 	capacity := uint(cap(this.data))
 	capacity = 2*capacity
-	newData := make([]int, capacity, capacity)
+	newData := make([]int, 0, capacity)
 	for i := uint(0) ; i < this.Len(); i++ {
 		newData[i] = this.data[i]
 	}
